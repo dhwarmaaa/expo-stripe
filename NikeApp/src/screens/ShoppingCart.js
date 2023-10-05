@@ -19,13 +19,12 @@ import {
   selectTotal,
   cartSlice,
 } from "../store/cartSlice";
-/*
+
 import {
   useCreateOrderMutation,
   useCreatePaymentIntentMutation,
 } from "../store/apiSlice";
 import { useStripe } from "@stripe/stripe-react-native";
-*/
 
 const ShoppingCartTotals = () => {
   const subtotal = useSelector(selectSubtotal);
@@ -51,21 +50,22 @@ const ShoppingCartTotals = () => {
 };
 
 const ShoppingCart = () => {
-  // const subtotal = useSelector(selectSubtotal);
-  // const deliveryFee = useSelector(selectDeliveryPrice);
-  // const total = useSelector(selectTotal);
-  // const dispatch = useDispatch();
+  const subtotal = useSelector(selectSubtotal);
+  const deliveryFee = useSelector(selectDeliveryPrice);
+  const total = useSelector(selectTotal);
+  const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.items);
-  // const [createOrder, { data, error, isLoading }] = useCreateOrderMutation();
-  // const [createPaymentIntent] = useCreatePaymentIntentMutation();
-  // const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const [createOrder, { data, error, isLoading }] = useCreateOrderMutation();
+  const [createPaymentIntent] = useCreatePaymentIntentMutation();
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
-  /*const onCheckout = async () => {
+  const onCheckout = async () => {
     // 1. Create a payment intent
     const response = await createPaymentIntent({
       amount: Math.floor(total * 100),
     });
+    console.log(response);
     if (response.error) {
       Alert.alert("Error", response.error.message);
       return;
@@ -113,9 +113,6 @@ const ShoppingCart = () => {
       );
       dispatch(cartSlice.actions.clear());
     }
-  };*/
-  const onCheckout = () => {
-    console.log("Checkout");
   };
 
   return (
@@ -128,7 +125,7 @@ const ShoppingCart = () => {
       />
       <Pressable style={styles.button} onPress={onCheckout}>
         <Text style={styles.buttonText}>
-          Checkout {/*isLoading && <ActivityIndicator />*/}
+          Checkout {isLoading && <ActivityIndicator />}
         </Text>
       </Pressable>
     </>

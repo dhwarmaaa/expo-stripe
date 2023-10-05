@@ -48,7 +48,7 @@ const ProductsScreen = ({ navigation }) => {
         </Pressable>
       )}
       numColumns={2}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
     />
   );
 };
